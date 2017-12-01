@@ -1,15 +1,16 @@
 package foodOrderingSystem;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import foodOrderingSystem.Choices.SelectableMenuAction;
+
+import java.util.*;
 
 public class CliMenu {
     private String description;
-    private List<String> options = new ArrayList<>();
-    private String lastOptionAtZero;
+    private List<String> options = new ArrayList<>(Collections.singletonList(""));
+    private Map<String, SelectableMenuAction> actionsForOptions = new HashMap<>();
 
-    private Scanner scanner = new Scanner(System.in);
+    public CliMenu() {
+    }
 
     public CliMenu(String description) {
         this.description = description;
@@ -19,53 +20,43 @@ public class CliMenu {
         this.description = description;
     }
 
-    public void setLastOptionAtZero(String lastOptionAtZero) {
-        this.lastOptionAtZero = lastOptionAtZero;
+    public void setLastOptionAtZero(String lastOptionAtZero, SelectableMenuAction action) {
+        options.set(0, lastOptionAtZero);
+        actionsForOptions.put(lastOptionAtZero, action);
     }
 
-    public CliMenu addOption(String option) {
+    public CliMenu addOption(String option, SelectableMenuAction action) {
         options.add(option);
+        actionsForOptions.put(option, action);
         return this;
     }
 
+    public void removeOption(String option) {
+        options.remove(option);
+    }
+
+    public String getOption(int index) {
+        return options.get(index);
+    }
+
+    public SelectableMenuAction getNextSelectable(String option) {
+        return actionsForOptions.get(option);
+    }
+
     public int numberOfOptions() {
-        int numberOfoptions = this.options.size();
-        if (lastOptionAtZero != null)
-            numberOfoptions++;
-        return numberOfoptions;
+        return this.options.size();
     }
 
     public void printOptions() {
         System.out.println(this.description);
-        int i = 1;
-        for(String option : options){
-            System.out.println((i++) + ". " + option);
-        }
-        if (lastOptionAtZero != null) {
-            System.out.println("0. " + lastOptionAtZero);
-        }
-    }
 
-    public int getUserChoice() {
-        int selectedNumber = -1;
-        boolean isNumberValid = false;
-        while (!isNumberValid){
+        ListIterator<String> optionsIterator = this.options.listIterator();
+        optionsIterator.next();
 
-            try {
-                selectedNumber = scanner.nextInt();
-                if (selectedNumber < this.numberOfOptions() && selectedNumber >= 0) {
-                    isNumberValid = true;
-                }
-                else {
-                    System.out.println("Invalid number. Try again");
-                }
-            }
-            catch (Exception e){
-                System.out.println("Invalid number. Try again");
-            }
-            scanner.nextLine();
-
+        while (optionsIterator.hasNext()) {
+            System.out.println(optionsIterator.nextIndex()+". "+optionsIterator.next());
         }
-        return selectedNumber;
+
+        System.out.println("O. " + options.get(0));
     }
 }

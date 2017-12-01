@@ -1,6 +1,6 @@
 package mineSweeper;
 
-public interface MineSweeper {
+interface MineSweeper {
     /**
      * Initialises the field
      *

@@ -1,4 +1,4 @@
-package foodOrderingSystem.models;
+package foodOrderingSystem.Models;
 
 import java.util.ArrayList;
 
@@ -26,7 +26,8 @@ public class Cuisine {
         this.listOfDishes = listOfDishes;
     }
 
-    public void addDish(Dish dish) {
+    public Cuisine addDish(Dish dish) {
         listOfDishes.add(dish);
+        return this;
     }
 }

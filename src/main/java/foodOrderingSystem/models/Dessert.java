@@ -1,14 +1,14 @@
-package foodOrderingSystem.models;
+package foodOrderingSystem.Models;
 
 import java.math.BigDecimal;
 
-public class Dessert {
+public class Dessert implements Orderable {
     private String name;
     private BigDecimal price;
 
     public Dessert(String name, double price) {
         this.name = name;
-        this.price = new BigDecimal(price).setScale(2);
+        this.price = new BigDecimal(price).setScale(2, BigDecimal.ROUND_DOWN);
     }
 
     public String getName() {

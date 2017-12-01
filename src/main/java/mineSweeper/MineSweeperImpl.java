@@ -44,13 +44,13 @@ public class MineSweeperImpl implements MineSweeper {
         for (int y = 0; y < ySize; y++) {
             for (int x = 0; x < xSize; x++) {
                 if(isMine(board[x][y])){
-                    incraseAdjecentFieldsHintCounterForMineAt(x,y);
+                    increaseAdjecentFieldsHintCounterForMineAt(x,y);
                 }
             }
         }
     }
 
-    private void incraseAdjecentFieldsHintCounterForMineAt(int mineX, int mineY) {
+    private void increaseAdjecentFieldsHintCounterForMineAt(int mineX, int mineY) {
         for (int k = -1; k <= 1; k++) {
             int y = mineY + k;
             for (int l = -1; l <= 1; l++) {
